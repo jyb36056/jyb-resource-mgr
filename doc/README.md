@@ -171,6 +171,11 @@ A@blue-pony MINGW64 /d/code/go/src/jyb-resource-mgr (master)
 $ grpcurl -plaintext localhost:9090 user.v1.UserService/ListUsers
 {
     "users": [
+       {
+           "id": 1,
+           "name": "张三",
+           "email": "zhangsan@example.com"
+        },
         {
            "id": 2,
            "name": "李四",
@@ -180,11 +185,6 @@ $ grpcurl -plaintext localhost:9090 user.v1.UserService/ListUsers
            "id": 3,
            "name": "王五",
            "email": "wangwu@example.com"
-        },
-        {
-           "id": 1,
-           "name": "张三",
-           "email": "zhangsan@example.com"
         }
     ]
 }
@@ -214,6 +214,40 @@ $ grpcurl -plaintext localhost:9090 user.v1.UserService/ListUsers
            "email": "wangwu@example.com"
         }
     ]
+}
+```
+
+## 更新用户
+```bash
+A@blue-pony MINGW64 /d/code/go/jyb-resource-mgr (main)
+$ grpcurl -plaintext -d '{"id":3,"name":"王五-new","email":"wangwu@example.com"}' \
+  localhost:9090 user.v1.UserService/UpdateUser
+{
+    "user": {
+        "id": 3,
+        "name": "王五-new",
+        "email": "wangwu@example.com"
+    }
+}
+```
+
+## 获取所有用户
+```bash
+A@blue-pony MINGW64 /d/code/go/src/jyb-resource-mgr (master)
+$ grpcurl -plaintext localhost:9090 user.v1.UserService/ListUsers
+{
+    "users": [
+        {
+          "id": 2,
+          "name": "李四",
+          "email": "lisi@example.com"
+        },
+        {
+          "id": 3,
+          "name": "王五-new",
+          "email": "wangwu@example.com"
+        }
+  ]
 }
 ```
 
